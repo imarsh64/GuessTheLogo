@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Final Project</title>
+    <script>  //            0                             1                           2                        3                                 4
+      var pics = ["<img src = 'adidas.png'>", "<img src = 'amazon.png'>", "<img src = 'shell.png'>", "<img src = 'target.png'>", "<img src = 'wiki.png'>"]; //pic1.jpg is placeholder
+      var solutions = ["adidas", "amazon", "shell", "target", "wikipedia"]; //All are placeholders
+      var answers = [];
+      var index = 0;//add one to this in getUserAnswers to advance
+      var score = 0;
+      var table= "";
+
+      function getUserAnswers(){
+        answers[index]= document.getElementById("guess").value;
+        index += 1;
+        if(index >= 5){
+          checkAnswers();
+        }
+          document.getElementById("images").innerHTML = pics[index];
+      }
+      function checkAnswers(){
+        for(var i=0; i<pics.length; i++){
+          if(answers[i]==solutions[i]){
+            score += 1;
+          }
+        }
+        displayResult();
+      }
+      function displayResult(){
+        for(var i=0; i<pics.length; i++){
+          table = table + "ANSWER: " + solutions[i] + "----  YOUR ANSWER " + answers[i] + "<br>";
+        }
+        document.getElementById("reset").style.visibility = "visible";
+          document.getElementById("images").style.visibility = "hidden";
+        document.getElementById("score").innerHTML = "Score: " + score + "/5 <br>" + table;
+      }
+      function reset(){
+        index = 0;
+        score = 0;
+        answers.splice(0,answers.length);
+          document.getElementById("images").style.visibility = "visible";
+            document.getElementById("score").innerHTML = "";
+        hide();
+      }
+      function hide(){
+        document.getElementById("reset").style.visibility = "hidden";
+        document.getElementById("images").innerHTML = pics[index];
+        table = "";
+      }
+    </script>
+  <style>
+    *{
+      text-align: center;
+    }
+    #images {
+      width: 300px;
+      height: 178px;
+    }
+    img{
+      width: 300px;
+      height: 178px;
+    }
+    body{
+      background-color: #2F4454;
+      color: white;
+      font-family: sans-serif;
+    }
+    h1{
+      font-size: 50px;
+    }
+    input[type='button']{
+      background-color: #DA7B93;
+      border-radius: 10px;
+    }
+    input[type='text']{
+      background-color: white;
+      border-color: #DA7B93;
+      color: #DA7B93;
+      border-radius: 15px;
+      height: 30px;
+      width: 150px;
+    }
+    input[type='text']:focus{
+      border-radius: 15px;
+      height: 30px;
+      width: 150px;
+    }
+    input[type='text']:hover{
+      background-color: grey;
+    }
+  </style>
+  </head>
+  <body onload="hide()">
+    <h1>Guess the Logo</h1>
+    <br><br>
+    <span id="images"></span>
+    <span id="score"></span>
+    <br>
+    <br>
+    <br>
+    <input type="text" id="guess">
+    <input type="button" value="Submit Guess" onclick="getUserAnswers()">
+    <input type="button" id="reset" value="Reset" onclick="reset()">
+  </body>
+</html>
